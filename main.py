@@ -16,10 +16,16 @@ def whatIs(m, t):
     autoSentence(m, t, f"This movie stars {temp} actors: {m[t]}.")
   if t == 'Plot':
     autoSentence(m, t, f"The {t} of the movie is: {m[t]}")
+  if t == 'Director':
+    temp = getRandom("brilliant", "dashing", "marvelous")
+    autoSentence(m, t, f"This {temp} movie's {t} is {m[t]}.")
+  if t == 'Rating':
+    autoSentence(m, t, f"")
+    
     
     
 def autoSentence(m, t, sentence):
-  print(sentence)
+  print(t + ": " + sentence)
 
 def blog(movies):
   headLine(movies)
