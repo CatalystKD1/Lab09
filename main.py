@@ -5,23 +5,47 @@ movies = {"Title":"Back to the Future","Year":"1985","Rated":"PG","Released":"03
 #movie_title = 'Back To The Future'
 #data = f'httpd://www.ombapi.com/?apikey={API_KEY}&t={movie_title}'
 #response = requests.get(data).json()
+#Could not make this work
 
 def whatIs(m, t):
-  if t == 'Title':
-    autoSentence(m, t, f"{m[t]}")
-  if t == 'Released':
-    autoSentence(m,t,f"This movie was released was released {m[t]}.")
-  if t == 'Actors':
-    temp = getRandom("acclaiemed", "popular", " ")
-    autoSentence(m, t, f"This movie stars {temp} actors: {m[t]}.")
-  if t == 'Plot':
-    autoSentence(m, t, f"The {t} of the movie is: {m[t]}")
-  if t == 'Director':
-    temp = getRandom("brilliant", "dashing", "marvelous")
-    autoSentence(m, t, f"This {temp} movie's {t} is {m[t]}.")
-  if t == 'Rating':
-    autoSentence(m, t, f"")
+  try:
+  
+    if t == 'Title':
+      autoSentence(m, t, f"{m[t]}")
+    if t == 'Released':
+      temp = movies['Released']
+      temp = temp[7:11]
+      if(temp == "2022"):
+        autoSentence(m,t,f"This movie was released was released {m[t]} which was released this year.")
+      else:
+        autoSentence(m,t,f"This movie was released was released {m[t]}.")
+    if t == 'Actors':
+      temp = getRandom("acclaiemed", "popular", " ")
+      autoSentence(m, t, f"This movie stars {temp} actors: {m[t]}.")
+    if t == 'Plot':
+      autoSentence(m, t, f"The {t} of the movie is: {m[t]}")
+    if t == 'Director':
+      temp = getRandom("brilliant", "dashing", "marvelous")
+      autoSentence(m, t, f"This {temp} movie's {t} is {m[t]}.")
+    if t == 'Metascore':
+      temp = m[t]
+      if int(temp) == 100:
+        autoSentence(m, t, f"This movies has a perfect {t} score of {temp}%!")
+      elif int(temp[0]) < 3:
+        autoSentence(m, t, f"This movie has a terrible {t} level is {temp}%. Spend your time on another film.")
+      elif int(temp[0]) > 6:
+        autoSentence(m, t, f"The {t} of this film is {temp}. You should probably watch this.")
+    if t == 'Awards':
+      autoSentence(m, t, f"The movies has recived {m[t]} for {t}.")
+    if t =='Writer':
+      temp = getRandom("talented", "fabulous", " ")
+      autoSentence(m, t, f"Thr {t} for this movie is the {temp} {m[t]}.")
+  except:
+    # This code is useless
+    b = 1
+  
     
+  
     
     
 def autoSentence(m, t, sentence):
@@ -32,10 +56,12 @@ def blog(movies):
   for thing in movies:
     whatIs(movies, thing)
 
+
 def headLine(m):
   temp = getRandom(f"Here are some fact about {m['Title']}!", f"Let's look back on {m['Title']}!", f"{m['Title']} is a classic!")
   print(temp)
   print()
+
 
 def getRandom(c1, c2, c3):
   if (c2 != " " and c3 != " "):
@@ -52,6 +78,6 @@ def getRandom(c1, c2, c3):
       return c1
     elif ran == 1:
       return c2
+
       
 blog(movies)
-
